@@ -28,4 +28,8 @@
         },
         { deep: true }
     );
+
+    onMounted(() => {
+        todos.value = JSON.parse(localStorage.getItem("todos")) || [];
+    });
 </script>
