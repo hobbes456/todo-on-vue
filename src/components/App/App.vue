@@ -15,9 +15,17 @@
         })
 
         text.value = "";
-    }
+    };
 
     const deleteTodo = (todo) => {
         todos.value = todos.value.filter((element) => element !== todo);
-    }
+    };
+
+    watch(
+        todos,
+        (newTodo) => {
+            localStorage.setItem("todos", JSON.stringify(newTodo))
+        },
+        { deep: true }
+    );
 </script>
