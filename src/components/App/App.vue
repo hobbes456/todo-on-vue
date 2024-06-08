@@ -16,4 +16,8 @@
 
         text.value = "";
     }
+
+    const deleteTodo = (todo) => {
+        todos.value = todos.value.filter((element) => element !== todo);
+    }
 </script>
