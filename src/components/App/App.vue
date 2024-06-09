@@ -22,16 +22,16 @@
                     <div 
                         v-for="todo in todos"
                         :class="`todo-item ${todo.done && 'done'}`"
-                        :key="todo.id"
-                    >
+                        :key="todo.id">
                         <label>
                             <input type="checkbox" v-model="todo.done" />
                         </label>
                         <div>
-                            <input type="text" v-model="todo.value" />
+                            <EditInput v-if="todo.isEdit" v-model="todo.value" :correct-todo="todo"/>
+                            <div v-else @dblclick="showEditTodo(todo)">{{todo.value}}</div>
                         </div>
                         <div>
-                            <button @click="deleteTodo(todo)">Удалить</button>
+                            <button @click="deleteTodo(todo)">Х</button>
                         </div>
                     </div>
                 </div>
@@ -43,6 +43,8 @@
 <script setup>
     import { ref, onMounted, watch } from 'vue';
 
+    import EditInput from '../EditInput/EditInput.vue';
+
     const todos = ref([]);
     const text = ref("");
 
@@ -53,6 +55,7 @@
             id: Date.now(),
             value: text.value,
             done: false,
+            isEdit: false,
         })
 
         text.value = "";
@@ -61,6 +64,10 @@
     const deleteTodo = (todo) => {
         todos.value = todos.value.filter((element) => element !== todo);
     };
+
+    const showEditTodo = (todo) => {
+        todo.isEdit = true;
+    }
 
     watch(
         todos,
