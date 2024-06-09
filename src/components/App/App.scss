@@ -1,0 +1,103 @@
+$main_color: green;
+$font_color: rgb(19, 143, 152);
+
+$font_size: 18px;
+
+@mixin _flex_column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin _hover_effects {
+    transition: background-color 200ms ease;
+
+    &:hover {
+        background-color: white;
+        border-radius: 4px;
+    }
+}
+
+@mixin _template {
+    width: 300px;
+
+    font-size: $font_size;
+}
+
+
+.app {
+    margin-top: 20px;
+
+    @include _flex_column();
+    gap: 30px;
+
+    &__title {
+        font-size: 50px;
+        color: $main_color;
+    }
+
+    &__form {
+        @include _flex_column();
+
+        gap: 15px;
+        width: 400px;
+    }
+
+    &__subtitle {
+        font-size: 25px;
+        color: $main_color;
+    }
+
+    &__enter {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    &__input {
+        @include _template();
+
+        color: $font_color;
+
+        cursor: pointer;
+
+        @include _hover_effects();
+
+        &::placeholder {
+            color: grey;
+        }
+    }
+
+    &__btn {
+        color: $font_color;
+        font-size: $font_size;
+
+        cursor: pointer;
+
+        @include _hover_effects();
+    }
+
+    &__todos {
+        @include _flex_column();
+
+        gap: 20px;
+    }
+
+    &__todo {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+
+        &_done .app__task {
+            color: grey;
+            text-decoration: line-through;
+        }
+    }
+
+    &__task {
+        @include _template();
+
+        color: $font_color;
+    }
+}

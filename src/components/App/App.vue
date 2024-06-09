@@ -1,40 +1,29 @@
 <template>
-    <main>
-        <div>
-            <h3>Задачник</h3>
-        </div>
-        <div>
-            <div>
-                <form @submit.prevent="addTodo">
-                    <h3>Напишите свою задачу</h3>
-                    <input 
-                        type="text"
-                        placeholder="Время объявить свои планы!"
-                        v-model="text">
-                    <input type="submit" value="Добавить задачу"/>
-                </form>
+    <main class="app">
+        <h3 class="app__title">Задачник</h3>
+        <form class="app__form" @submit.prevent="addTodo">
+            <h1 class="app__subtitle">Напишите свою задачу</h1>
+            <div class="app__enter">
+                <input 
+                    class="app__input"
+                    type="text"
+                    placeholder="Время объявить свои планы!"
+                    v-model="text">
+                <input class="app__btn" type="submit" value="Добавить задачу"/>
             </div>
-        </div>
-        <div>
-            <div>
-                <h2 v-show="todos.length === 0">Нет задач</h2>
+        </form>
+        <h1 class="app__subtitle" v-show="todos.length === 0">Нет задач</h1>
+        <div class="app__todos">
+            <div 
+                v-for="todo in todos"
+                :class="`app__todo ${todo.done && 'app__todo_done'}`"
+                :key="todo.id">
+                <input type="checkbox" v-model="todo.done" />
                 <div>
-                    <div 
-                        v-for="todo in todos"
-                        :class="`todo-item ${todo.done && 'done'}`"
-                        :key="todo.id">
-                        <label>
-                            <input type="checkbox" v-model="todo.done" />
-                        </label>
-                        <div>
-                            <EditInput v-if="todo.isEdit" v-model="todo.value" :correct-todo="todo"/>
-                            <div v-else @dblclick="showEditTodo(todo)">{{todo.value}}</div>
-                        </div>
-                        <div>
-                            <button @click="deleteTodo(todo)">Х</button>
-                        </div>
-                    </div>
+                    <EditInput class="app__input" v-if="todo.isEdit" v-model="todo.value" :correct-todo="todo"/>
+                    <div class="app__task" v-else @dblclick="showEditTodo(todo)">{{todo.value}}</div>
                 </div>
+                <button class="app__btn" @click="deleteTodo(todo)">Х</button>
             </div>
         </div>
     </main>
@@ -44,6 +33,8 @@
     import { ref, onMounted, watch } from 'vue';
 
     import EditInput from '../EditInput/EditInput.vue';
+
+    import "./App.scss";
 
     const todos = ref([]);
     const text = ref("");

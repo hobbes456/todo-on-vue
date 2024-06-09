@@ -1,1 +1,15 @@
 @import "./css-reset.scss";
+
+html {
+    overflow-x: hidden;
+    
+    background-color: rgba($color: #80d9d0, $alpha: 0.5);
+}
+
+input[type="submit"],
+input[type="text"],
+button {
+    background-color: transparent;
+    border: none;
+    outline: 0;
+}
